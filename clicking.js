@@ -39,7 +39,7 @@ document.addEventListener("click", event => {
 
                    dial.close()
                 document.getElementById("Progress").style.width = titleList.length / goal * 100 > 100 ?  "100%" : titleList.length / goal * 100 + "%";
-                document.getElementById("percentage").innerText = "Goal: " + titleList.length + "/" + goal;
+                document.getElementById("percentage").innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";;
 
                 if (titleList.length == goal) {
                     won.showModal();
