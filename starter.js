@@ -22,12 +22,9 @@ titleList.forEach((item, index) => {
                 if (name) {
                     greeting.innerText = name.at(-1) === "s" ? name + "' Book Library" : name + "'s Book Library";
                 }
+
                 document.documentElement.style.setProperty("--bgCo", bg);
  
                 colourInput.value = bg;
-                setInterval(() => {
-                   
 
-                 
-                }, 50)
             
