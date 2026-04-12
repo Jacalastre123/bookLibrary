@@ -1,6 +1,6 @@
 
         :root {
-            --bg: rgb(44, 160, 255);
+            --bgCo: rgb(44, 160, 255);
         }
         .holder {
             background-color: var(--bgCo);
