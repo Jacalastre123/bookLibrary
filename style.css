@@ -23,7 +23,9 @@
             top: 0px;
             left: 0px;
             height: 10vh;
+            font-size: 0.9em;
            margin-bottom: 10px;
+
         }
 
         header * {

@@ -102,4 +102,8 @@ document.addEventListener("click", event => {
                 dial.close()
             }
 
+            if (event.target.id === "resetCol") {
+                colourInput.value = "rgb(44, 160, 255)"
+            }
+
         });
