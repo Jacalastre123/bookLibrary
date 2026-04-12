@@ -5,7 +5,7 @@
         .holder {
             background-color: var(--bgCo);
             padding: 5px;
-            width: 32%;
+            min-width: 32%;
             text-align: center;
             margin: 10px;
             position: relative;
