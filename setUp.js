@@ -18,5 +18,6 @@
         let goal = localStorage.getItem("goal") || 100
         let name = localStorage.getItem("name") || ""
         let bg = localStorage.getItem("bg") || "rgb(44, 160, 255)"
-        let isMonth = 0
+        let isMonth = 0;
          let tempDate = new Date();
+        let stream = false

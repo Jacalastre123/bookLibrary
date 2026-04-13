@@ -1,19 +1,24 @@
-document.addEventListener("click", event => {
+
+
+document.addEventListener("click", async event => {
             
             if (event.target.id === "newBook") {
                 dial.showModal();
-              navigator.mediaDevices.getUserMedia({video: true})
-                .then(vid => {
-                    video.srcObject = vid;
+              stream = await navigator.mediaDevices.getUserMedia({video: true})
+                    
+ video.srcObject = stream;
+                    
+                   
                     
                     
-                });
+               
               
             };
-            if (event.target.id === "submit" && title.value.trim() !== "" && author.value.trim() !== "") {
-                isMonth = 0
+            if (event.target.id === "submit" && title.value.trim() !== "" && author.value.trim() !== "" && stream) {
+                
                 event.preventDefault();
                 
+               
                 const tempHolds = document.getElementById("tempHolds");
                 const tempClone = tempHolds.content.cloneNode(true);
                 tempClone.querySelector("#titleHold").innerText = title.value;
@@ -47,7 +52,9 @@ document.addEventListener("click", event => {
                     let aud = new Audio("Winning.mp3");
                     aud.play();
                 };
-               
+                 stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+               stream = false
             };
             if (event.target.classList.contains("delete")) {
                  titleList = titleList.filter(list => list !== event.target.parentElement.querySelector("#titleHold").innerText);
@@ -107,3 +114,4 @@ document.addEventListener("click", event => {
             }
 
         });
+
