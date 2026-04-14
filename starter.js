@@ -25,7 +25,7 @@ titleList.forEach((item, index) => {
 
                 document.documentElement.style.setProperty("--bgCo", bg);
  
-                colourInput.value = bg;
+                
 
                 customList.forEach(item => {
                     let allEl = document.querySelectorAll("*")
@@ -42,8 +42,9 @@ titleList.forEach((item, index) => {
                     dial.querySelector("#submit").disabled = true
                        let authTrue = auth.trim() !== "" ? auth : "None"
                         if (!/^[0-9\-]{10,13}$/.test(ISBN)) {
-                            dial.close()
+                         
                             dial.querySelector("#submit").disabled = false
+                              dial.close()
                             return [ISBN, authTrue]
                         }
                     let fetching = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN:" + ISBN + "&fetch&format=json&jscmd=data")
@@ -60,11 +61,10 @@ titleList.forEach((item, index) => {
                             return [ISBN, authTrue]
                         }
                         const book = response["ISBN:" + ISBN]
-                      
+                        
                         if (!book) {
                             return [ISBN, authTrue]
                         }
-                       
                         dial.close()
                         return [book.title !== null ? book.title : ISBN, book.authors[0].name ? book.authors[0].name : authTrue]
                         
@@ -76,6 +76,53 @@ titleList.forEach((item, index) => {
                     isVisited = "did"
                     localStorage.setItem("visit", isVisited)
                     document.getElementById("starter").showModal()
+                }
+
+                async function submission() {
+                        const tempHolds = document.getElementById("tempHolds");
+                const tempClone = tempHolds.content.cloneNode(true);
+
+                tempClone.querySelector("#titleHold").innerText =  (await check(title.value.replace("-", ""), ""))[0]
+
+         
+                    const result = (await check(title.value.replace("-", ""), author.value))[1]
+                    theAuthor = result
+             
+                
+                tempClone.querySelector("#personHold").innerText = "Author: " + theAuthor
+                barcode = false
+                const canvas = tempClone.querySelector("#picture");
+                const date = tempClone.querySelector("#date");
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                container.appendChild(tempClone);
+                
+                let dates = new Date();
+                date.innerText = dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", " + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear();
+               titleList.push((await check(title.value.replace("-", ""), ""))[0]);
+               authorList.push(theAuthor);
+               imageList.push(canvas.toDataURL());
+               dateList.push(dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", "  + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear());
+                 localStorage.setItem("title", JSON.stringify(titleList));
+                  localStorage.setItem("author", JSON.stringify(authorList));
+                  localStorage.setItem("image", JSON.stringify(imageList));
+                  localStorage.setItem("date", JSON.stringify(dateList));
+                title.value = "";
+                author.value = "";
+             
+                   
+                document.getElementById("Progress").style.width = titleList.length / goal * 100 > 100 ?  "100%" : titleList.length / goal * 100 + "%";
+                document.getElementById("percentage").innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";;
+
+                if (titleList.length == goal) {
+                    won.showModal();
+                    won.querySelector("#read").innerText = "You had read: " + titleList.length + "/" + goal + "!";
+                    let aud = new Audio("Winning.mp3");
+                    aud.play();
+                };
+                 stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+               stream = false
                 }
 
             

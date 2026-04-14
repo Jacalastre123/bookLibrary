@@ -20,52 +20,9 @@ document.addEventListener("click", async event => {
             if (event.target.id === "submit" && title.value.trim() !== "" && stream) {
                 
                 event.preventDefault();
-                
-               
-                const tempHolds = document.getElementById("tempHolds");
-                const tempClone = tempHolds.content.cloneNode(true);
-
-                tempClone.querySelector("#titleHold").innerText =  (await check(title.value.replace("-", ""), ""))[0]
-
-         
-                    const result = (await check(title.value.replace("-", ""), author.value))[1]
-                    theAuthor = result
-             
-                
-                tempClone.querySelector("#personHold").innerText = "Author: " + theAuthor
-                barcode = false
-                const canvas = tempClone.querySelector("#picture");
-                const date = tempClone.querySelector("#date");
-                const ctx = canvas.getContext("2d");
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                container.appendChild(tempClone);
-                
-                let dates = new Date();
-                date.innerText = dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", " + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear();
-               titleList.push((await check(title.value.replace("-", ""), ""))[0]);
-               authorList.push(theAuthor);
-               imageList.push(canvas.toDataURL());
-               dateList.push(dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", "  + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear());
-                 localStorage.setItem("title", JSON.stringify(titleList));
-                  localStorage.setItem("author", JSON.stringify(authorList));
-                  localStorage.setItem("image", JSON.stringify(imageList));
-                  localStorage.setItem("date", JSON.stringify(dateList));
-                title.value = "";
-                author.value = "";
-             
-                   
-                document.getElementById("Progress").style.width = titleList.length / goal * 100 > 100 ?  "100%" : titleList.length / goal * 100 + "%";
-                document.getElementById("percentage").innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";;
-
-                if (titleList.length == goal) {
-                    won.showModal();
-                    won.querySelector("#read").innerText = "You had read: " + titleList.length + "/" + goal + "!";
-                    let aud = new Audio("Winning.mp3");
-                    aud.play();
-                };
-                 stream.getTracks().forEach(track => track.stop());
-                video.srcObject = null;
-               stream = false
+                continues = false
+               await submission()
+            
 
                
             };
@@ -78,7 +35,7 @@ document.addEventListener("click", async event => {
                   localStorage.setItem("image", JSON.stringify(imageList));
                   localStorage.setItem("date", JSON.stringify(dateList));
                 event.target.parentElement.remove();
-               progress.style.width = titleList.length / goal * 100 > 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
+               progress.style.width = titleList.length / goal * 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
             };
 
@@ -101,11 +58,7 @@ document.addEventListener("click", async event => {
                 greeting.innerText = name.at(-1) === "s" ? name + "' Book Library" : name + "'s Book Library";
                  
                 };
-                if (colourInput !== bg) {
-                    bg = colourInput.value;
-                    localStorage.setItem("bg", bg)
-                    document.documentElement.style.setProperty("--bgCo", bg)
-                }
+                
                 progress.style.width = titleList.length / goal * 100 > 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
                  localStorage.setItem("goal", goal)
@@ -122,20 +75,23 @@ document.addEventListener("click", async event => {
                 dial.close()
             }
 
-            if (event.target.id === "resetCol") {
-                colourInput.value = "rgb(44, 160, 255)"
+            if (event.target.id === "ResetCol") {
+                bg = "rgb(44, 160, 255)"
+                document.documentElement.style.setProperty("--bgCo", bg)
+                localStorage.setItem("bg", bg)
             }
             if (event.target.className === "Custom") {
                 if (event.target.textContent === "Customise") {
                     event.target.innerText = "Stop";
                     isCustom = true;
-                    document.body.cursor = "crosshair"
+                    document.body.style.cursor = "crosshair"
+                  
                 }
                 else {
                     isCustom = false;
                     event.target.innerText = "Customise"
                     document.querySelector("#colForm").remove()
-                    document.body.cursor = "auto"
+                    document.body.style.cursor = "auto"
                 };
             }
             if (event.target.tagName === "DIV" && event.target.id !== "colForm" && isCustom) {
@@ -144,12 +100,13 @@ document.addEventListener("click", async event => {
                 const colForm = cloneTemp.querySelector("#colForm")
                 document.body.appendChild(cloneTemp)
                 currentClick = event.target
-
+                   
                 colForm.style.top = mouseY + "px"
                  colForm.style.left = mouseX + "px"
                  if (document.querySelectorAll("#colForm")[1]) {
                     document.querySelectorAll("#colForm")[0].remove()
                  }
+               
                  
                   
                 
@@ -157,7 +114,8 @@ document.addEventListener("click", async event => {
             if (event.target.id === "submit2") {
                 
                 if (currentClick.classList.contains("holder")) {
-                    document.documentElement.style.setProperty("--bgCo", event.target.parentElement.querySelector("#colormise").value)
+                    document.documentElement.style.setProperty("--bgCo", event.target.parentElement.querySelector("#colormise").value);
+                    bg = event.target.parentElement.querySelector('#colormise').value
                 }
                 else {
                     currentClick.style.backgroundColor = event.target.parentElement.querySelector("#colormise").value
@@ -167,6 +125,7 @@ document.addEventListener("click", async event => {
                 customList.push({element: currentClick.id !== "" ? currentClick.id: currentClick.className, colour: event.target.parentElement.querySelector("#colormise").value})
                 localStorage.setItem("colList", JSON.stringify(customList))
                 currentClick = null
+                localStorage.setItem("bg", bg)
             }
             if (event.target.id === "close2") {
                event.target.parentElement.remove()
@@ -206,6 +165,6 @@ localStorage.setItem("colList", JSON.stringify(customList))
                 startClose.parentElement.close()
             }
             
-
+          
         });
 
