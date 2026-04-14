@@ -199,7 +199,11 @@ localStorage.setItem("colList", JSON.stringify(customList))
                 }, 1000)
                 
             }
-            console.log(event.target.className)
+
+            if (event.target.id === "startClose") {
+                startClose.parentElement.close()
+            }
+            
 
         });
 

@@ -34,3 +34,4 @@
         let barcode = false
         let theAuthor;
         let willConfirm = false;
+        let isVisited = localStorage.getItem("visit") || false;

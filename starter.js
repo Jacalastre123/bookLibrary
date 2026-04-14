@@ -70,13 +70,12 @@ titleList.forEach((item, index) => {
                         
                         }
                         
-                
+          
 
-                function removal() {
-                    localStorage.removeItem("title")
-                    localStorage.removeItem("author")
-                    localStorage.removeItem("date")
-                    localStorage.removeItem("image")
+                if (!isVisited) {
+                    isVisited = "did"
+                    localStorage.setItem("visit", isVisited)
+                    document.getElementById("starter").showModal()
                 }
 
             

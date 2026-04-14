@@ -83,6 +83,7 @@
             width: 0%;
             transition: width 4s;
             z-index: 2;
+            border-radius: 5px;
         }
 
         .bar {
@@ -95,6 +96,7 @@
                align-items: center;
                justify-content: center;
                margin-bottom: 10px;
+               border-radius: 5px;
         }
         #percentage {
             text-align: center;
@@ -126,6 +128,7 @@
         }
 
         canvas:hover {
+            transition: transform 1s;
             transform: scale(2);
             
         }
@@ -187,5 +190,12 @@
             background-color: rgba(255, 255, 255, 0.524);
             margin: 5px;
             border-radius: 10px;
+        }
+
+        dialog {
+            border-radius: 10px;
+            background-color: rgba(112, 182, 144, 0.569);
+            backdrop-filter: blur(50px);
+            text-align: center;
         }
     
