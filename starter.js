@@ -65,7 +65,7 @@ titleList.forEach((item, index) => {
                             return [ISBN, authTrue]
                         }
                        
-                       
+                        dial.close()
                         return [book.title !== null ? book.title : ISBN, book.authors[0].name ? book.authors[0].name : authTrue]
                         
                         }

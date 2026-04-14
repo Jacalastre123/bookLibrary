@@ -166,6 +166,7 @@
             width: 30vw;
             padding: 10px;
             display: none;
+            text-align: center;
             backdrop-filter: blur(100px)
         }
 
@@ -197,5 +198,8 @@
             background-color: rgba(112, 182, 144, 0.569);
             backdrop-filter: blur(50px);
             text-align: center;
+        }
+        button[data-in="menu"] {
+            width: 100%;
         }
     

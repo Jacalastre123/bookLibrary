@@ -45,14 +45,14 @@ document.addEventListener("click", async event => {
                titleList.push((await check(title.value.replace("-", ""), ""))[0]);
                authorList.push(theAuthor);
                imageList.push(canvas.toDataURL());
-               dateList.push(dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", " + dates.getFullYear() + "/" + dates.getMonth()+ "/" + dates.getDate());
+               dateList.push(dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", "  + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear());
                  localStorage.setItem("title", JSON.stringify(titleList));
                   localStorage.setItem("author", JSON.stringify(authorList));
                   localStorage.setItem("image", JSON.stringify(imageList));
                   localStorage.setItem("date", JSON.stringify(dateList));
                 title.value = "";
                 author.value = "";
-
+             
                    
                 document.getElementById("Progress").style.width = titleList.length / goal * 100 > 100 ?  "100%" : titleList.length / goal * 100 + "%";
                 document.getElementById("percentage").innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";;
@@ -66,6 +66,8 @@ document.addEventListener("click", async event => {
                  stream.getTracks().forEach(track => track.stop());
                 video.srcObject = null;
                stream = false
+
+               
             };
             if (event.target.className === "delete") {
                  titleList = titleList.filter(list => list !== event.target.parentElement.querySelector("#titleHold").innerText);
@@ -76,7 +78,7 @@ document.addEventListener("click", async event => {
                   localStorage.setItem("image", JSON.stringify(imageList));
                   localStorage.setItem("date", JSON.stringify(dateList));
                 event.target.parentElement.remove();
-               progress.style.width = titleList.length / goal * 100 + "%";
+               progress.style.width = titleList.length / goal * 100 > 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
             };
 
@@ -104,7 +106,7 @@ document.addEventListener("click", async event => {
                     localStorage.setItem("bg", bg)
                     document.documentElement.style.setProperty("--bgCo", bg)
                 }
-                progress.style.width = titleList.length / goal * 100 + "%";
+                progress.style.width = titleList.length / goal * 100 > 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
                  localStorage.setItem("goal", goal)
                  localStorage.setItem("name", name)
@@ -185,14 +187,14 @@ localStorage.setItem("colList", JSON.stringify(customList))
             if (event.target.id === "Mobile") {
                 const menuBurg = document.querySelector(".menuBurg")
                                 menuBurg.style.display = "block"
-                menuBurg.style.animation = "slide 1s"
+                menuBurg.style.animation = "slide 0.5s"
                 menuBurg.style.left = "0px"
 
             }
 
             if (event.target.className !== "menuBurg" && window.getComputedStyle(document.querySelector(".menuBurg")).left == "0px") {
                 const menuBurg = document.querySelector(".menuBurg")
-                menuBurg.style.animation = "rev-slide 1s"
+                menuBurg.style.animation = "rev-slide 0.5s"
                 menuBurg.style.left = "-30vw"
                 setTimeout(function() {
  menuBurg.style.display = "none"
