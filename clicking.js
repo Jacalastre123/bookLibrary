@@ -91,7 +91,7 @@ document.addEventListener("click", async event => {
                     isCustom = false;
                     event.target.innerText = "Customise"
                     document.querySelector("#colForm").remove()
-                    document.body.style.cursor = "auto"
+                    document.body.style.cursor = "default"
                 };
             }
             if (event.target.tagName === "DIV" && event.target.id !== "colForm" && isCustom) {
@@ -136,9 +136,14 @@ document.addEventListener("click", async event => {
                 document.getElementById("container").style.backgroundColor = "rgb(214, 214, 214)"
                 document.getElementById("Progress").style.backgroundColor = "rgb(5, 193, 5)"
                 document.querySelector(".bar").style.backgroundColor = "lightgrey"
-                document.documentElement.style.setProperty("--bgCo", "rgb(44, 160, 255)")
+                document.querySelector(".naming").style.backgroundColor = "lightgrey"
+                bg = "rgb(44, 160, 255)"
+                document.documentElement.style.setProperty("--bgCo", bg)
+                document.querySelectorAll(".holder").forEach(item => {
+                    item.style.backgroundColor = "var(--bgCo)"
+                })
                 customList.length = 0
-                customList.push({element: "container", colour: "rgb(214, 214, 214)"}, {element: "Progress", colour: "rgb(5, 193, 5)"}, {element: "bar", colour: "lightgrey"})
+                customList.push({element: "container", colour: "rgb(214, 214, 214)"}, {element: "Progress", colour: "rgb(5, 193, 5)"}, {element: "bar", colour: "lightgrey"}, {element: "naming", colour: "lightgrey"})
 localStorage.setItem("bg", bg)
 localStorage.setItem("colList", JSON.stringify(customList))
             }

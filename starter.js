@@ -30,7 +30,7 @@ titleList.forEach((item, index) => {
                 customList.forEach(item => {
                     let allEl = document.querySelectorAll("*")
                     allEl.forEach(el => {
-                        if (el.id === item.element || el.className === item.element[0]) {
+                        if (el.id === item.element || el.className === item.element) {
                            if (el.id === "holder") {
                                 document.documentElement.style.setProperty("--bgCo", item.colour)
                            } else { el.style.backgroundColor = item.colour }

@@ -202,4 +202,13 @@
         button[data-in="menu"] {
             width: 100%;
         }
-    
+
+        .naming {
+            background-color: lightgrey;
+            text-align: center;
+            
+        }
+        .naming h3 {
+            width: 20vw;
+        }
+
