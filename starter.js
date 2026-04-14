@@ -1,8 +1,8 @@
 titleList.forEach((item, index) => {
     const tempHolds = document.getElementById("tempHolds")
                 const tempClone = tempHolds.content.cloneNode(true);
-                tempClone.querySelector("#titleHold").innerText = item;
-                tempClone.querySelector("#personHold").innerText = "Author: " + authorList[index];
+                tempClone.querySelector(".titleHold").innerText = item;
+                tempClone.querySelector(".personHold").innerText = "Author: " + authorList[index];
                 tempClone.querySelector("#date").innerText = dateList[index];
                 const canvas = tempClone.querySelector("#picture");
                 const ctx = canvas.getContext("2d");
@@ -33,6 +33,9 @@ titleList.forEach((item, index) => {
                         if (el.id === item.element || el.className === item.element) {
                            if (el.id === "holder") {
                                 document.documentElement.style.setProperty("--bgCo", item.colour)
+                                document.querySelectorAll(".holder", itemHold => {
+                                    itemHold.style.backgroundColor = "var(--bgCo)"
+                                })
                            } else { el.style.backgroundColor = item.colour }
                         }
                     })
@@ -82,20 +85,20 @@ titleList.forEach((item, index) => {
                         const tempHolds = document.getElementById("tempHolds");
                 const tempClone = tempHolds.content.cloneNode(true);
 
-                tempClone.querySelector("#titleHold").innerText =  (await check(title.value.replace("-", ""), ""))[0]
+                tempClone.querySelector(".titleHold").innerText =  (await check(title.value.replace("-", ""), ""))[0]
 
          
                     const result = (await check(title.value.replace("-", ""), author.value))[1]
                     theAuthor = result
              
                 
-                tempClone.querySelector("#personHold").innerText = "Author: " + theAuthor
+                tempClone.querySelector(".personHold").innerText = "Author: " + theAuthor
                 barcode = false
                 const canvas = tempClone.querySelector("#picture");
                 const date = tempClone.querySelector("#date");
                 const ctx = canvas.getContext("2d");
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                container.appendChild(tempClone);
+                container.prepend(tempClone);
                 
                 let dates = new Date();
                 date.innerText = dates.getHours() + ":" + String(dates.getMinutes()).padStart(2, "0") + ", " + dates.getDate() + "/" + dates.getMonth() + "/" + dates.getFullYear();
@@ -124,5 +127,28 @@ titleList.forEach((item, index) => {
                 video.srcObject = null;
                stream = false
                 }
+
+                searching.forEach(searchItem => {
+                    searchItem.addEventListener("input", e => {
+                    
+
+                    document.querySelectorAll(".holder").forEach(item => {
+                     
+                        if ((item.querySelector(".titleHold").innerText.toLowerCase().includes(searchItem.value.toLowerCase()) && !authors) || (authors && item.querySelector(".personHold").innerText.slice(7).toLowerCase().includes(searchItem.value.toLowerCase()))) {
+                            item.style.display = "block"
+
+                        }
+                        else {
+                            item.style.display = "none"
+                        }
+                    })
+                })
+            })
+
+                
+                    
+                        
+         
+            
 
             

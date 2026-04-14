@@ -14,8 +14,11 @@
         const customCheck = document.querySelector(".Custom")
         const bookCheck = document.querySelector(".newBook")
         const settingCheck = document.querySelector(".settings")
-        
-
+        const searching = document.querySelectorAll(".searching")
+        const isAuth = document.querySelectorAll(".isAuth")
+        const searchdiv = document.querySelector(".searchdiv")
+        const searchCheck = document.querySelector(".search")
+        const mobileForm = document.getElementById("mobileForm")
         let titleList = JSON.parse(localStorage.getItem("title")) || [];
         let authorList = JSON.parse(localStorage.getItem("author")) || [];
         let imageList = JSON.parse(localStorage.getItem("image")) || [];
@@ -34,4 +37,6 @@
         let barcode = false
         let theAuthor;
         let willConfirm = false;
+        let continues = false
         let isVisited = localStorage.getItem("visit") || false;
+        let authors = false

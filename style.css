@@ -60,7 +60,7 @@
             background-color: rgb(214, 214, 214);
             height: 45vh;
         }
-        .newBook, .settings, .Custom, #Mobile {
+        .newBook, .settings, .Custom, #Mobile, .search {
             
             background-color: transparent;
             border: none;
@@ -68,7 +68,7 @@
             font-size: 1.5em;
             min-width: 10vw;
         }
-        .newBook:hover, .settings:hover, .Custom:hover, #Mobile:hover {
+        .newBook:hover, .settings:hover, .Custom:hover, #Mobile:hover, .search:hover {
             font-weight: bold;
         }
 
@@ -163,7 +163,7 @@
             left: -30vw;
             z-index: 2000;
             height: 100vh;
-            width: 30vw;
+            min-width: 30vw;
             padding: 10px;
             display: none;
             text-align: center;
@@ -205,10 +205,38 @@
 
         .naming {
             background-color: lightgrey;
-            text-align: center;
-            
+
+            display: flex;
+           justify-content: space-around;
+           
+            gap: 50px;
+            border-bottom: 1px solid rgb(255, 255, 255);
         }
         .naming h3 {
             width: 20vw;
-        }
+                }
+                .searchdiv {
+                    display: none;
+                    position: absolute;
+                    background-color: rgba(126, 126, 126, 0.434);
+                    backdrop-filter: blur(50px);
+                    top: 0;
+                    left: 0;
+                    width: 30vw;
+                    height: 20vh;
+                    z-index: 3000;
+                    padding: 5px;
+                    border-radius: 10px;
+                }
+                button {
+                    border-radius: 5px !important;
+                }
+
+            
+             
+
+
+     
+
+    
 

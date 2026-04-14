@@ -27,15 +27,15 @@ document.addEventListener("click", async event => {
                
             };
             if (event.target.className === "delete") {
-                 titleList = titleList.filter(list => list !== event.target.parentElement.querySelector("#titleHold").innerText);
-                authorList = authorList.filter(list => list !== event.target.parentElement.querySelector("#personHold").innerText.slice(8));
+                 titleList = titleList.filter(list => list !== event.target.parentElement.querySelector(".titleHold").innerText);
+                authorList = authorList.filter(list => list !== event.target.parentElement.querySelector(".personHold").innerText.slice(8));
                 imageList = imageList.filter(list => list !== event.target.parentElement.querySelector("#picture").toDataURL());
                  localStorage.setItem("title", JSON.stringify(titleList));
                   localStorage.setItem("author", JSON.stringify(authorList));
                   localStorage.setItem("image", JSON.stringify(imageList));
                   localStorage.setItem("date", JSON.stringify(dateList));
                 event.target.parentElement.remove();
-               progress.style.width = titleList.length / goal * 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
+               progress.style.width = titleList.length / goal * 100 < 100 ? titleList.length / goal * 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
             };
 
@@ -59,7 +59,7 @@ document.addEventListener("click", async event => {
                  
                 };
                 
-                progress.style.width = titleList.length / goal * 100 > 100 ? titleList.length / goal * 100 > 100 + "%" : "100%";
+                progress.style.width = titleList.length / goal * 100 < 100 ? titleList.length / goal * 100 + "%" : "100%";
                  percentage.innerText = "Goal: " + titleList.length + "/" + goal + " (" + (titleList.length / goal * 100).toFixed(2) + "%)";
                  localStorage.setItem("goal", goal)
                  localStorage.setItem("name", name)
@@ -77,8 +77,14 @@ document.addEventListener("click", async event => {
 
             if (event.target.id === "ResetCol") {
                 bg = "rgb(44, 160, 255)"
-                document.documentElement.style.setProperty("--bgCo", bg)
-                localStorage.setItem("bg", bg)
+                document.documentElement.style.setProperty("--bgCo", "rgb(44, 160, 255)")
+                localStorage.setItem("bg", "rgb(44, 160, 255)")
+                document.querySelectorAll(".holder").forEach(item => {
+                    item.style.backgroundColor = "var(--bgCo)"
+                    
+                })
+                customList = customList.filter(cl => cl.element !== "holder")
+                localStorage.setItem("colList", JSON.stringify(customList))
             }
             if (event.target.className === "Custom") {
                 if (event.target.textContent === "Customise") {
@@ -89,9 +95,10 @@ document.addEventListener("click", async event => {
                 }
                 else {
                     isCustom = false;
-                    event.target.innerText = "Customise"
-                    document.querySelector("#colForm").remove()
                     document.body.style.cursor = "default"
+                    event.target.innerText = "Customise"
+                    document.querySelectorAll("#colForm").forEach(item => item.remove())
+                    
                 };
             }
             if (event.target.tagName === "DIV" && event.target.id !== "colForm" && isCustom) {
@@ -168,6 +175,27 @@ localStorage.setItem("colList", JSON.stringify(customList))
 
             if (event.target.id === "startClose") {
                 startClose.parentElement.close()
+            }
+
+            if (event.target.className === "search") {
+                searchdiv.style.display = "block"
+                const searchRect = event.target.getBoundingClientRect()
+                searchdiv.style.top = searchRect.y + event.target.offsetHeight - 3 + "px"
+                searchdiv.style.left = Number(searchRect.x) + event.target.offsetWidth / 4 + "px"
+            }
+            if (event.target.id === "searchClose") {
+                searching.value = ""
+                searchdiv.style.display = "none"
+            }
+
+            if (event.target.className === "isAuth") {
+                
+                if (event.target.checked) {
+                    authors = true
+                }
+                else {
+                    authors = false
+                }
             }
             
           
