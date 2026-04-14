@@ -11,6 +11,11 @@
         const colourInput = dial2.querySelector("#colour")
         const progress = document.getElementById("Progress")
         const percentage = document.getElementById("percentage")
+        const customCheck = document.querySelector(".Custom")
+        const bookCheck = document.querySelector(".newBook")
+        const settingCheck = document.querySelector(".settings")
+        
+
         let titleList = JSON.parse(localStorage.getItem("title")) || [];
         let authorList = JSON.parse(localStorage.getItem("author")) || [];
         let imageList = JSON.parse(localStorage.getItem("image")) || [];
@@ -20,4 +25,12 @@
         let bg = localStorage.getItem("bg") || "rgb(44, 160, 255)"
         let isMonth = 0;
          let tempDate = new Date();
-        let stream = false
+        let stream = false;
+        let isCustom = false;
+        let currentClick = null;
+        let mouseY;
+        let mouseX;
+        let customList = JSON.parse(localStorage.getItem("colList")) || []
+        let barcode = false
+        let theAuthor;
+        let willConfirm = false;
