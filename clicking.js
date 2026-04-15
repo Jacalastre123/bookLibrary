@@ -166,10 +166,10 @@ localStorage.setItem("colList", JSON.stringify(customList))
             if (event.target.className !== "menuBurg" && window.getComputedStyle(document.querySelector(".menuBurg")).left == "0px") {
                 const menuBurg = document.querySelector(".menuBurg")
                 menuBurg.style.animation = "rev-slide 0.5s"
-                menuBurg.style.left = "-30vw"
+                menuBurg.style.left = "-40vw"
                 setTimeout(function() {
  menuBurg.style.display = "none"
-                }, 1000)
+                }, 500)
                 
             }
 
