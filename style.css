@@ -17,12 +17,13 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            background-color: rgb(38, 155, 252);
+            background-color: rgb(142, 210, 250);
             width: 100%;
+           
             position: relative;
             top: 0px;
             left: 0px;
-            height: 10vh;
+            height: 7vh;
             font-size: 0.9em;
            margin-bottom: 10px;
 
@@ -32,6 +33,10 @@
            margin-top: 5px;
            margin-bottom: 5px;
            margin: 8px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
         }
         body {
             font-family: Lato;
@@ -166,7 +171,7 @@
             min-width: 30vw;
             padding: 10px;
             display: none;
-            text-align: center;
+
             backdrop-filter: blur(100px)
         }
 
@@ -230,6 +235,19 @@
                 }
                 button {
                     border-radius: 5px !important;
+                }
+
+                #searchClose {
+                    width: 100%;
+                }
+                .searchdiv .searching {
+                    widtH: 100%;
+                }
+
+                button[data-in="menu"] {
+                    height: 6vh;
+                    text-align: left;
+                    margin-bottom: 10px;
                 }
 
             
